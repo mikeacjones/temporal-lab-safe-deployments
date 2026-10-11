@@ -5,7 +5,7 @@ Sample project for the [Safe Deployments with Temporal Worker Versioning on Kube
 ## Branches
 
 - **`starter`** - Starting point for the lab. Has the research agent workflow and all infrastructure, but no worker versioning configured. Clone this branch to follow along with the lab.
-- **`main`** - Completed reference with all versioning pieces in place: `WorkerDeploymentConfig`, `PINNED` workflows, continue-as-new with `AUTO_UPGRADE`, wake-up signal pattern, and draining logic.
+- **`main`** - Completed reference with all versioning pieces in place: `WorkerDeploymentConfig`, `PINNED` workflows, continue-as-new with `AUTO_UPGRADE`, wake-up signal pattern, draining logic, and per-version KEDA autoscaling.
 
 ## Quick Start
 
@@ -26,3 +26,4 @@ A mocked "research agent" workflow that simulates expensive LLM calls. The lab w
 3. Using Worker Versioning to safely deploy changes without losing in-flight work
 4. Handling long-running workflows with continue-as-new version migration
 5. The sleeping workflow caveat and the wake-up signal pattern
+6. Autoscaling each worker version on its own Temporal backlog with KEDA

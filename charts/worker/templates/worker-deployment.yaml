@@ -14,7 +14,9 @@ spec:
     scaledownDelay: {{ .Values.sunset.scaledownDelay }}
     deleteDelay: {{ .Values.sunset.deleteDelay }}
   deployment:
+    {{- if not .Values.autoscaling.enabled }}
     replicas: {{ .Values.replicas }}
+    {{- end }}
     template:
       spec:
         containers:

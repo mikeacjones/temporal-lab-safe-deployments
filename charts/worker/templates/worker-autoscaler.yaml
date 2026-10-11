@@ -1,0 +1,37 @@
+{{- if .Values.autoscaling.enabled }}
+# One KEDA ScaledObject per worker version. The controller fills in the empty
+# fields for each version it stamps out: scaleTargetRef points at that version's
+# Deployment, and the trigger asks Temporal for that version's backlog only.
+apiVersion: temporal.io/v1alpha1
+kind: WorkerResourceTemplate
+metadata:
+  name: research-agent-keda
+  namespace: {{ .Release.Namespace }}
+spec:
+  workerDeploymentRef:
+    name: research-agent
+  template:
+    apiVersion: keda.sh/v1alpha1
+    kind: ScaledObject
+    spec:
+      scaleTargetRef: {}
+      minReplicaCount: {{ .Values.autoscaling.minReplicas }}
+      maxReplicaCount: {{ .Values.autoscaling.maxReplicas }}
+      pollingInterval: 5
+      advanced:
+        horizontalPodAutoscalerConfig:
+          behavior:
+            scaleDown:
+              stabilizationWindowSeconds: 30
+      triggers:
+        - type: temporal
+          metadata:
+            endpoint: "temporal-lab-devenv:7233"
+            enableTLS: "false"
+            taskQueue: research-agent
+            queueTypes: activity
+            targetQueueSize: {{ .Values.autoscaling.targetQueueSize | quote }}
+            namespace: ""
+            workerDeploymentName: ""
+            workerDeploymentBuildId: ""
+{{- end }}
