@@ -1,0 +1,27 @@
+apiVersion: temporal.io/v1alpha1
+kind: WorkerDeployment
+metadata:
+  name: research-agent
+  namespace: {{ .Release.Namespace }}
+spec:
+  workerOptions:
+    connectionRef:
+      name: {{ .Values.temporal.connectionRef }}
+    temporalNamespace: {{ .Values.temporal.namespace }}
+  rollout:
+    strategy: {{ .Values.rollout.strategy }}
+  sunset:
+    scaledownDelay: {{ .Values.sunset.scaledownDelay }}
+    deleteDelay: {{ .Values.sunset.deleteDelay }}
+  deployment:
+    replicas: {{ .Values.replicas }}
+    template:
+      spec:
+        containers:
+          - name: worker
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            env:
+              - name: TEMPORAL_ADDRESS
+                value: "temporal-lab-devenv:7233"
+              - name: TEMPORAL_NAMESPACE
+                value: {{ .Values.temporal.namespace }}

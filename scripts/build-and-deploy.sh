@@ -23,7 +23,7 @@ if [ "$VERSIONED" = true ]; then
 
   echo ""
   echo "Done. Check status with:"
-  echo "  kubectl get temporalworkerdeployments -n default"
+  echo "  kubectl get workerdeployments -n default"
   echo "  kubectl get pods -n default"
 else
   echo "==> Deploying as standard Deployment (build ID: ${BUILD_ID})..."
