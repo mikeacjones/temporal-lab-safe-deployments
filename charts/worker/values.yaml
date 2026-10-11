@@ -14,3 +14,11 @@ rollout:
 sunset:
   scaledownDelay: 5s
   deleteDelay: 10s
+
+# Per-version autoscaling with KEDA. Requires KEDA in the cluster and
+# ScaledObject in the Worker Controller's allowed resources.
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetQueueSize: 5

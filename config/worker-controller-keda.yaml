@@ -1,0 +1,10 @@
+# Lets WorkerResourceTemplates contain KEDA ScaledObjects. The list replaces
+# the chart default, so it repeats the HorizontalPodAutoscaler entry.
+workerResourceTemplate:
+  allowedResources:
+    - kinds: ["HorizontalPodAutoscaler"]
+      apiGroups: ["autoscaling"]
+      resources: ["horizontalpodautoscalers"]
+    - kinds: ["ScaledObject"]
+      apiGroups: ["keda.sh"]
+      resources: ["scaledobjects"]
