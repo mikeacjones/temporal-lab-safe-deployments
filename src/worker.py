@@ -34,6 +34,7 @@ async def main() -> None:
             synthesize_findings,
             fact_check,
         ],
+        max_concurrent_activities=2,
         deployment_config=WorkerDeploymentConfig(
             version=WorkerDeploymentVersion(
                 deployment_name=DEPLOYMENT_NAME,

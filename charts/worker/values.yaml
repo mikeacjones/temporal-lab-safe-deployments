@@ -18,7 +18,7 @@ sunset:
 # Per-version autoscaling with KEDA. Requires KEDA in the cluster and
 # ScaledObject in the Worker Controller's allowed resources.
 autoscaling:
-  enabled: false
+  enabled: true
   minReplicas: 1
   maxReplicas: 5
   targetQueueSize: 5
